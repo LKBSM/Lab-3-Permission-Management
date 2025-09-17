@@ -44,24 +44,26 @@ namespace Lab_3_Permission_Management
         //  Add a single permission
         public void AddPermission(Permissions permission)
         {
-            // complete code to add a permission
+            // Complete code to add a permission
+            permissions |= permission;
         }
         //  Remove a single permission
         public void RemovePermission(Permissions permission)
         {
-            //complete code to remove a permission
-
+            // Complete code to remove a permission
+            permissions &= ~permission;
         }
         //  Add multiple permisions
-        public void multiplyPermission(Permissions permission1,Permissions permission2)
+        public void multiplyPermission(Permissions permission1, Permissions permission2)
         {
-            //complete code to multiply permissions
-
+            // Complete code to add multiple permissions
+            permissions |= (permission1 | permission2);
         }
         //  remove multiple permisions
         public void removeMultiplyPermission(Permissions permission1, Permissions permission2)
         {
-            //complete code to remove multiple permissions
+            // Complete code to remove multiple permissions
+            permissions &= ~(permission1 | permission2);
         }
 
         public bool HasPermission(Permissions permission)

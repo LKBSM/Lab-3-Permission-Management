@@ -10,31 +10,33 @@ namespace Lab_3_Permission_Management
     {
         static void Main(string[] args)
         {
-            // Add 4 users with none permissions (Admin, operator, manager,senior)
             User operatorUser = new User("operator");
-            User SeniorUser = new User("senior");
+            User seniorUser = new User("senior");
             User managerUser = new User("manager");
             User adminUser = new User("admin");
-            /**
-             * 
-             * Add read permission to operatorUser look at line 25 to line 31
-             * Add read, write, execute permissions to manager
-             * Add read, write permissions to senior
-             * Add full permission(read,write,execution) to admin
-             */
+
             operatorUser.AddPermission(Permissions.Read);
-            if(operatorUser.HasPermission(Permissions.Read))
-                Console.WriteLine("Operator has read permission");
-            else
-                Console.WriteLine("Operator does not have read permission");
+            ValidatePermissions(operatorUser, Permissions.Read);
 
-            /**
-             * Look at tasks description in lab3.1 and complete the remaining tasks
-             */
-            
-            
+            managerUser.AddPermission(Permissions.Read);
+            managerUser.MultiplyPermission(Permissions.Write, Permissions.Execute);
+            ValidatePermissions(managerUser, Permissions.Read | Permissions.Write | Permissions.Execute);
 
+            seniorUser.MultiplyPermission(Permissions.Read, Permissions.Write);
+            ValidatePermissions(seniorUser, Permissions.Read | Permissions.Write);
 
+            adminUser.MultiplyPermission(Permissions.Read, Permissions.Write);
+            adminUser.MultiplyPermission(Permissions.Admin, Permissions.Execute);
+            ValidatePermissions(adminUser, Permissions.Read | Permissions.Write | Permissions.Execute | Permissions.Admin);
         }
+
+        static void ValidatePermissions(User user, Permissions requiredPermissions)
+        {
+            if (user.HasPermission(requiredPermissions))
+                Console.WriteLine($"{user.GetName()} has {requiredPermissions} permission(s)");
+            else
+                Console.WriteLine($"{user.GetName()} does not have {requiredPermissions} permission(s)");
+        }
+    }
     }
 }
